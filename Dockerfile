@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
     supervisor
 
 # NodeJS dependencies
-RUN npm install -g
+RUN npm install -g \
     bower \
     less
 
