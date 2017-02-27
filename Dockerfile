@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
     wget
 
 # External packages
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
 RUN echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list # For PHP 7 FPM
 RUN wget https://www.dotdeb.org/dotdeb.gpg -P /tmp/ && apt-key add /tmp/dotdeb.gpg
 
@@ -19,7 +18,6 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
     nginx \
     php7.0-fpm \
     nodejs \
-    npm \
     imagemagick \
     libmagickwand-dev \
     supervisor
