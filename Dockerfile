@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends \
     nginx \
     php7.0-fpm \
     nodejs \
+    npm \
     imagemagick \
     libmagickwand-dev \
     supervisor
