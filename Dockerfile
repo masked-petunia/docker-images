@@ -20,6 +20,7 @@ RUN apt-get install -y --force-yes --no-install-recommends \
     git \
     nginx \
     php7.0-fpm \
+    php7.0-curl \
     nodejs \
     imagemagick \
     libmagickwand-dev \
