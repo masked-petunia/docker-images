@@ -20,9 +20,10 @@ RUN apt-get install -y --force-yes --no-install-recommends \
     git \
     nginx \
     php7.0-fpm \
+    php7.0-common \
     php7.0-curl \
-    php7.0-dom \
     php7.0-mysql \
+    php7.0-xml \
     php7.0-zip \
     imagemagick \
     libmagickwand-dev \
