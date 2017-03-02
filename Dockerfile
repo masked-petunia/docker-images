@@ -22,9 +22,11 @@ RUN apt-get install -y --force-yes --no-install-recommends \
     php7.0-fpm \
     php7.0-curl \
     php7.0-dom \
-    nodejs \
+    php7.0-mysql \
+    php7.0-zip \
     imagemagick \
     libmagickwand-dev \
+    nodejs \
     supervisor
 
 # NodeJS dependencies
