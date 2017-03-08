@@ -1,4 +1,4 @@
-# Docker Minimal PHP Debian
+# Docker Minimal Debian PHP
 Minimal Symfony setup on Debian with Nginx, PHP7, Composer and some other dependencies
 
 :warning: If you want to use this repo, you need to finish the setup :
