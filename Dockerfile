@@ -44,6 +44,7 @@ RUN rm -r /var/www/*
 
 # Open Ports
 EXPOSE 80
+EXPOSE 443
 
 # Clean
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
