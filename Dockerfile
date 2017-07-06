@@ -15,17 +15,16 @@ RUN wget https://www.dotdeb.org/dotdeb.gpg -P /tmp/ && apt-key add /tmp/dotdeb.g
 # NodeJS (includes an "apt-get update" at the end)
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
-# Other dependencies
+# PHP dependencies
+RUN apt-get install -y --force-yes --no-install-recommends \
+    php7.0 php7.0-fpm php7.0-mysql php7.0-curl php7.0-json php7.0-gd php7.0-mcrypt \
+    php7.0-msgpack php7.0-memcached php7.0-intl php7.0-sqlite3 php7.0-gmp php7.0-geoip \
+    php7.0-mbstring php7.0-xml php7.0-zip php7.0-dom
+
+# Software dependencies
 RUN apt-get install -y --force-yes --no-install-recommends \
     git \
     nginx \
-    php7.0-curl \
-    php7.0-dom \
-    php7.0-fpm \
-    php7.0-mbstring \
-    php7.0-mysql \
-    php7.0-xml \
-    php7.0-zip \
     imagemagick \
     libmagickwand-dev \
     supervisor
