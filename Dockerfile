@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:jessie
 
 MAINTAINER Nazim Lachter <nlachter@gmail.com>
 
@@ -13,7 +13,7 @@ RUN echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/d
 RUN wget https://www.dotdeb.org/dotdeb.gpg -P /tmp/ && apt-key add /tmp/dotdeb.gpg
 
 # NodeJS (includes an "apt-get update" at the end)
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 # Other dependencies
 RUN apt-get install -y --force-yes --no-install-recommends \
@@ -28,7 +28,6 @@ RUN apt-get install -y --force-yes --no-install-recommends \
     php7.0-zip \
     imagemagick \
     libmagickwand-dev \
-    nodejs \
     supervisor
 
 # NodeJS dependencies
