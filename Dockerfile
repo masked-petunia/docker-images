@@ -25,6 +25,7 @@ RUN apt-get install -y --force-yes --no-install-recommends \
 RUN apt-get install -y --force-yes --no-install-recommends \
     git \
     nginx \
+    nodejs \
     imagemagick \
     libmagickwand-dev \
     supervisor
