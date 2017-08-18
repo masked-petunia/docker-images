@@ -6,7 +6,7 @@ MAINTAINER Nazim Lachter <nlachter@gmail.com>
 RUN apk add --update openjdk8-jre-base
 
 # NodeJS
-RUN apk add --update nodejs nodejs-npm
+RUN apk add --update nodejs
 
 # NodeJS dependencies
 RUN npm install -g bower less
