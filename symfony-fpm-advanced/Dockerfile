@@ -1,4 +1,4 @@
-FROM n4zim/php-projects:fpm
+FROM n4zim/images:php-fpm
 
 MAINTAINER Nazim Lachter <nlachter@gmail.com>
 
