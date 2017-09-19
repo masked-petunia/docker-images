@@ -35,7 +35,7 @@ RUN npm install -g bower less
 RUN rm -rf /tmp/* /var/cache/apk/*
 
 # Nginx config
-mkdir -p /run/nginx
+RUN mkdir -p /run/nginx
 
 # Exposing the port
 EXPOSE 80
