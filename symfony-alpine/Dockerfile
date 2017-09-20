@@ -36,8 +36,10 @@ RUN npm install -g bower less
 # Cleaning
 RUN rm -rf /tmp/* /var/cache/apk/*
 
-# Prepare configs
-RUN mkdir -p /run/nginx
+# Preparing www
+RUN adduser -D -u 1000 -g 'www' www
+RUN mkdir -p /run/nginx /www
+RUN chown -R www:www /run/nginx /www
 
 # Exposing the port
 EXPOSE 80
