@@ -15,7 +15,8 @@ RUN apk --update add nginx php7 php7-fpm
 # PHP extensions
 RUN apk add php7-json php7-phar php7-openssl \
     php7-curl php7-xml php7-dom php7-pdo \
-    php7-pdo_mysql php7-ctype php7-iconv
+    php7-pdo_mysql php7-ctype php7-iconv \
+    php7-tokenizer
 
 # Git & curl (for Composer)
 RUN apk add git curl
