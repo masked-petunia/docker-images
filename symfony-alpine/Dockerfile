@@ -13,10 +13,10 @@ RUN set -xe apk update apk upgrade
 RUN apk --update add nginx php7 php7-fpm
 
 # PHP extensions
-RUN apk add php7-json php7-phar php7-openssl \
-    php7-curl php7-xml php7-dom php7-pdo \
-    php7-pdo_mysql php7-ctype php7-iconv \
-    php7-tokenizer
+RUN apk add php7-json      php7-phar      php7-openssl   php7-curl      \
+	        php7-dom       php7-pdo       php7-pdo_mysql php7-ctype     \
+            php7-tokenizer php7-xmlwriter php7-fileinfo  php7-simplexml \
+            php7-mbstring  php7-xml       php7-iconv
 
 # Git & curl (for Composer)
 RUN apk add git curl
