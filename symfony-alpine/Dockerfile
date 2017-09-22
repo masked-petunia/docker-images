@@ -5,9 +5,8 @@ MAINTAINER Nazim Lachter <nlachter@gmail.com>
 # Update repository
 RUN set -xe apk update apk upgrade
 
-# Adding "dockerize" and "gosu"
-#RUN apk add dockerize gosu --no-cache \
-#     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+# Adding "gosu"
+RUN apk add gosu --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/
 
 # Nginx & PHP
 RUN apk --update add nginx php7-fpm
