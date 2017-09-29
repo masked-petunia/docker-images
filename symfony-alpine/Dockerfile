@@ -46,7 +46,7 @@ RUN rm -rf /tmp/* /var/cache/apk/*
 # Preparing www
 RUN adduser -D -u 1000 -g 'www' www
 RUN mkdir -p /run/nginx /www
-RUN chown -R www:www /run/nginx /www
+RUN chown -R www:www /run/nginx /var/tmp /www
 
 # Exposing the port
 EXPOSE 80
