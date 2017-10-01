@@ -1,14 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
 cd /app
+chown app:app -R .
 
 # Meteor Update
-meteor update
+echo "# METEOR UPDATE..."
+gosu app ${METEOR} update --packages-only
 
 # NodeJS deps
-meteor npm update
+echo "# NPM UPDATE..."
+gosu app ${METEOR} npm update
 
 # Start Meteor in development mode
-meteor ${RUN_PARAMS}
+echo "# SERVER..."
+if [ -f settings.json ]; then RUN_PARAMS="--settings settings.json"; else RUN_PARAMS=""; fi
+gosu app ${METEOR} ${RUN_PARAMS}
 
 exec "$@"

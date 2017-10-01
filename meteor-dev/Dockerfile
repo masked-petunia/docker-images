@@ -1,33 +1,22 @@
 FROM debian:latest
-
 MAINTAINER Nazim Lachter <nlachter@gmail.com>
 
-# Update repository
+# Dependencies
 RUN apt-get update
-
-# Curl, gnupg #gosu
-RUN apt-get install -y curl gnupg
+RUN apt-get install -y curl gnupg gosu
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
+# App user
+RUN useradd --create-home --shell /bin/bash --groups root app
+
 # Meteor
-RUN curl https://install.meteor.com/ | sh
+RUN curl https://install.meteor.com/ | gosu app sh
+ENV METEOR /home/app/.meteor/meteor
 
-# New app user
-#RUN useradd -ms /bin/bash app
-
-# Entrypoint
-ADD run.sh /run.sh
-#RUN chown app:app /run.sh
-
-# App dir
-#RUN mkdir /app
-#RUN chown app:app /app
-
-# Last things
-WORKDIR /app
+# Finish
 EXPOSE 3000
-#USER app
-ENTRYPOINT [ "/run.sh" ]
+ADD run.sh /
+CMD /run.sh
