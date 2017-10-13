@@ -8,10 +8,17 @@ WORKDIR /opt/dps
 # Cache
 RUN mkdir -p cache/bower cache/composer cache/css cache/js
 
-# Symfony
+# Shared directories
 RUN mkdir -p shared/sessions shared/logs
+
+# Scripts
+ADD start.sh /opt/dps
+RUN chmod +x /opt/dps/start.sh
 ADD run.sh bin/
+RUN chmod +x bin/run.sh
 
 # Permissions
-RUN adduser -D -u 1000 -g app app
-RUN chown -R app:app .
+RUN chown -R www:www .
+
+# Starting
+ENTRYPOINT /opt/dps/start.sh /bin/sh
