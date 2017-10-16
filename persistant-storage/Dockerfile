@@ -19,6 +19,7 @@ ADD exec.sh /opt/dps/bin/
 RUN chmod +x /opt/dps/bin/exec.sh
 
 # Permissions
+RUN adduser -D -u 1000 -g www www
 RUN chown -R www:www /opt/dps
 
 # Starting
