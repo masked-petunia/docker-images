@@ -15,8 +15,8 @@ WORKDIR /opt/dps/current
 # Scripts
 ADD start.sh /opt/dps
 RUN chmod +x /opt/dps/start.sh
-ADD exec.sh /opt/dps/bin/
-RUN chmod +x /opt/dps/bin/exec.sh
+ADD run.sh /opt/dps/bin/
+RUN chmod +x /opt/dps/bin/run.sh
 
 # Permissions
 RUN adduser -D -u 1000 -g www www
