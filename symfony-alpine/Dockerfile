@@ -73,7 +73,7 @@ RUN composer global require hirak/prestissimo
 RUN apk add --update nodejs nodejs-npm
 
 # NodeJS packages
-RUN npm install -g bower less
+RUN npm install -g bower yarn less
 
 # -----------------------------------------------------------------------------------------
 
