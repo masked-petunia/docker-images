@@ -20,10 +20,12 @@ RUN apk add php7-mcrypt php7-soap php7-openssl php7-gmp php7-pdo_odbc \
             php7-xmlreader php7-xmlrpc php7-bz2 php7-session \
             php7-iconv php7-pdo_dblib php7-curl php7-ctype php7-phar \
             php7-tokenizer php7-xmlwriter php7-fileinfo php7-simplexml \
-            php7-mbstring php7-xml php7-opcache php7-memcached php7-intl
-
-# GD lib
-RUN apk add coreutils freetype-dev libjpeg-turbo-dev libltdl libmcrypt-dev libpng-dev
+            php7-mbstring php7-xml php7-opcache php7-memcached php7-intl \
+            php7-imagick
+ 
+# GD lib & Imagemagick
+RUN apk add coreutils freetype-dev libjpeg-turbo-dev libltdl libmcrypt-dev libpng-dev \
+            imagemagick
 
 # -----------------------------------------------------------------------------------------
 # wkhtmltopdf
