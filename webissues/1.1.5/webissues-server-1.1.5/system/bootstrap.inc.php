@@ -201,6 +201,10 @@ class System_Bootstrap
     */
     public static function getBaseUrl()
     {
+
+        // Nazim
+        if(getenv('WI_BASE_URL')) return getenv('WI_BASE_URL');
+
         if ( defined( 'WI_BASE_URL' ) )
             return WI_BASE_URL;
 
