@@ -1,0 +1,21 @@
+version: '2'
+services:
+  web:
+    image: n4zim/images:webissues1.1.5
+    container_name: webissues-web
+    ports:
+      - 8001:80
+    volumes:
+      - ./data/web:/var/www/html/data
+    links:
+      - db:mysql
+  db:
+    image: mysql
+    container_name: webissues-db
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: webissues
+      MYSQL_PASSWORD: webissues
+      MYSQL_DATABASE: webissues
