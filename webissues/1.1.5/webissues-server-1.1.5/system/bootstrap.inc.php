@@ -176,11 +176,14 @@ class System_Bootstrap
         if ( !isset( $_SERVER[ 'SERVER_NAME' ] ) || $_SERVER[ 'SERVER_NAME' ] === '' )
             return '';
 
-        $schema = ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] == 'on' ) ? 'https' : 'http';
-
         // [Nazim] START
-        if(($https = getenv('HTTPS')) && $https === 'on') $schema = 'https';
+        if(($https = getenv('HTTPS')) && $https === 'on') {
+            $_SERVER['HTTPS'] = 'on';
+            $_SERVER['SERVER_PORT'] = 443;
+        }
         // [Nazim] END
+
+        $schema = ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] == 'on' ) ? 'https' : 'http';
 
         $host = $_SERVER[ 'SERVER_NAME' ];
         $url = $schema . '://' . $host;
