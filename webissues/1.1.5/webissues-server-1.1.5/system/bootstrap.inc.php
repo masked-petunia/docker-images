@@ -177,6 +177,11 @@ class System_Bootstrap
             return '';
 
         $schema = ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] == 'on' ) ? 'https' : 'http';
+
+        // [Nazim] START
+        if(($https = getenv('HTTPS')) && $https === 'on') $schema = 'https';
+        // [Nazim] END
+
         $host = $_SERVER[ 'SERVER_NAME' ];
         $url = $schema . '://' . $host;
 
@@ -201,10 +206,6 @@ class System_Bootstrap
     */
     public static function getBaseUrl()
     {
-
-        // Nazim
-        if(getenv('WI_BASE_URL')) return getenv('WI_BASE_URL');
-
         if ( defined( 'WI_BASE_URL' ) )
             return WI_BASE_URL;
 

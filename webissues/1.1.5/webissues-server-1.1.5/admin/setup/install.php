@@ -2,7 +2,7 @@
 /**************************************************************************
 * This file is part of the WebIssues Server program
 * Copyright (C) 2006 Michał Męciński
-* Copyright (C) 2007-2017 WebIssues Team
+* Copyright (C) 2007renderFormOpen-2017 WebIssues Team
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU Affero General Public License as published by
@@ -40,12 +40,12 @@ class Admin_Setup_Install extends System_Web_Component
 
             $this->form = new System_Web_Form( 'install', $this );
             $this->form->addViewState( 'page', 'language' );
-            $this->form->addPersistentField( 'language', 'en_US' );
+            $this->form->addPersistentField( 'language', 'fr_FR' );
             $this->form->addPersistentField( 'engine', key( $this->engineOptions ) );
-            $this->form->addPersistentField( 'host', 'localhost' );
+            $this->form->addPersistentField( 'host', 'mysql' );
             $this->form->addPersistentField( 'database', 'webissues' );
             $this->form->addPersistentField( 'user', 'webissues' );
-            $this->form->addPersistentField( 'password' );
+            $this->form->addPersistentField( 'password', 'webissues' );
             $this->form->addPersistentField( 'mode', 'new' );
             $this->form->addPersistentField( 'prefix' );
             $this->form->addPersistentField( 'serverName' );
