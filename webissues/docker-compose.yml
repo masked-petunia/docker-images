@@ -8,7 +8,8 @@ services:
     environment:
       DISPLAY_TYPES: "no"
     volumes:
-      - ./data/web:/var/www/html/data
+      - ./data/web:/var/www/html/data # Only data files
+      #- ./1.1.5:/var/www/html # Sync latest files
     links:
       - db:mysql
   db:
