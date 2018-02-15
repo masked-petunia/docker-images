@@ -15,7 +15,7 @@ var newIssueRegex = /^\/client\/issues\/addissue.php\?folder=([0-9]+).*$/g;
 function isPreviousNew() {
 	var result = newIssueRegex.exec(previous);
 	if(folderFilter.length === 0) return result !== null;
-	if(result.length >= 2 && folderFilter.indexOf(result[1]) !== -1) return true;
+	if(result !== null && result.length >= 2 && folderFilter.indexOf(result[1]) !== -1) return true;
 	return false;
 }
 
