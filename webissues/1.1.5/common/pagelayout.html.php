@@ -18,7 +18,7 @@
   <script type="text/javascript">
 <?php echo $inlineCode ?>
   </script>
-<?php endif ?>  
+<?php endif ?>
 </head>
 <body>
 
