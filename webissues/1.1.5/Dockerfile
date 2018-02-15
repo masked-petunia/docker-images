@@ -13,5 +13,5 @@ RUN docker-php-ext-install mbstring
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap
 
 # Files
-COPY webissues-server-1.1.5/ /var/www/html/
+COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
