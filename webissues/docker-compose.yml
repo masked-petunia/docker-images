@@ -5,6 +5,8 @@ services:
     container_name: webissues-web
     ports:
       - 8001:80
+    environment:
+      DISPLAY_TYPES: "no"
     volumes:
       - ./data/web:/var/www/html/data
     links:

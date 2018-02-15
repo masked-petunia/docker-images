@@ -14,7 +14,13 @@
 <?php $grid->renderHeader( $this->tr( 'Type' ) ) ?>
 </tr>
 
-<?php if ( !empty( $types ) ): ?>
+<?php
+    // [Nazim] START
+    $nazimDisplayTypes = !(getenv('DISPLAY_TYPES') && getenv('DISPLAY_TYPES') === "no");
+    // [Nazim] END
+?>
+
+<?php if ( !empty( $types ) && $nazimDisplayTypes ): ?>
 
 <?php $grid->renderParentRowOpen( 'T' ) ?>
 
