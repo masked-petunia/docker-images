@@ -1,0 +1,9 @@
+{
+    "network": {
+        "interface": "*NETWORK INTERFACE*",
+        "host": "192.168.192.0/24"
+    },
+    "cluster": [
+        { "name": "server1", "mac": "*MAC ADDRESS*" }
+    ]
+}
