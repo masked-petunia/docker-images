@@ -1,5 +1,5 @@
-FROM alpine
-LABEL MAINTAINER Nazim Lachter <nlachter@gmail.com>
+FROM alpine:latest
+LABEL MAINTAINER "Nazim Lachter <nlachter@gmail.com>"
 
 ADD connect.sh /
 
