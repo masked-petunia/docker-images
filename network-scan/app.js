@@ -1,4 +1,5 @@
 const fs = require('fs')
+const exec = require('child_process').exec
 const getMac = require('getmac').getMac
 const ip = require('ip')
 const arpScanner = require('arpscan/promise')
@@ -45,12 +46,24 @@ const defineNodeIP = (mac, ip) => {
     })
 }
 
+const updateNodeHost = (nodeIp, nodeName) => new Promise((resolve, reject) => {
+    const SCRIPT = __dirname + '/../hosts-file/define.sh'
+    exec(`sh ${SCRIPT} ${nodeIp} ${nodeName} ${CONFIG.name}`, (error, stdout) => {
+        if(error) {
+            reject(stdout)
+        } else {
+            console.log(`[HOSTS FILE UPDATE] ${stdout}`)
+            resolve()
+        }
+    })
+})
+
 // -----------------------------------------------------------------------
 
-// 1. Retrieving host MAC address
+// 1. Retrieving executor MAC address
 handle('own-mac', getMacAddress, null, macAddress => {
     
-    // 2. Adds the host IP if it is a node
+    // 2. Adds the exectutor IP address if it is a node
     defineNodeIP(macAddress, ip.address())
 
     // 3. Search IPs on the network
@@ -59,6 +72,11 @@ handle('own-mac', getMacAddress, null, macAddress => {
         // 4. Adds the IPs of the corresponding nodes
         arpScanList.forEach(element => {
             defineNodeIP(element.mac, element.ip)
+        })
+
+        // 5. Updates the executor /etc/hosts file
+        CONFIG.nodes.forEach(node => {
+            updateNodeHost(node.ip, node.name)
         })
 
     })

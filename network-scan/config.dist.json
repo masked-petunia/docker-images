@@ -1,6 +1,7 @@
 {
+    "name": "*CLUSTER DOMAIN NAME*",
     "host": {
-        "interface": "*NETWORK INTERFACE*",
+        "interface": "*NETWORK INTERFACE (OR LEAVE EMPTY)*",
         "network": "192.168.192.0/24"
     },
     "nodes": [

@@ -1,13 +1,9 @@
 {
   "name": "bare-metal-cluster-tools",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Nazim Lachter",
-  "license": "ISC",
+  "license": "Apache-2.0",
+  "main": "app.js",
   "dependencies": {
     "arpscan": "^0.6.0",
     "getmac": "^1.4.5",
