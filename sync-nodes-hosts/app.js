@@ -85,14 +85,23 @@ handle('own-mac', getMacAddress, null, macAddress => {
             defineNodeIP(element.mac, element.ip)
         })
 
-        // 5. Updates the /etc/hosts file of all nodes via SSH
+        // 5. Check if all nodes have an IP
+        CONFIG.nodes = CONFIG.nodes.filter(node => {
+            if(typeof node.ip === 'undefined') {
+                console.log(`[WARNING] NO IP FOUND FOUND FOR ${node.name}`)
+                return false
+            }
+            return true
+        })
+
+        // 6. Updates the /etc/hosts file of all nodes via SSH
         CONFIG.nodes.forEach(parentNode => {
             CONFIG.nodes.forEach(childNode => {
                 updateHostsFile(childNode.ip, childNode.name, parentNode.ip)
             })
         })
 
-        // 6. Updates the executor /etc/hosts file
+        // 7. Updates the executor /etc/hosts file
         CONFIG.nodes.forEach(node => {
             updateHostsFile(node.ip, node.name)
         })
