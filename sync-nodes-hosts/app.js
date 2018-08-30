@@ -25,13 +25,26 @@ const getMacAddress = () => new Promise((resolve, reject) => {
     })
 })
 
+const executeScriptLocal = (script, args) => {
+    exec(`sh ${script} ${args}`, (error, stdout) => {
+        console.log(`[LOCAL HOSTS FILE] ${stdout}`)
+    })
+}
+
+const executeScriptSSH = (script, args, targetIp, user, key) => {
+    const ssh = `ssh -o "StrictHostKeyChecking no" -i ${key} ${user}@${targetIp}`;
+    exec(`${ssh} "sudo bash -s" < ${script} ${args}`, (error, stdout) => {
+        console.log(`[REMOTE HOSTS FILE] ${stdout}`)
+    })
+}
+
 // -----------------------------------------------------------------------
 
 const CONFIG = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
 
-const arpScanOptions = { args: [ CONFIG.host.network ], sudo: true }
-if(CONFIG.host.interface) {
-    arpScanOptions.interface = CONFIG.host.interface
+const arpScanOptions = { args: [ CONFIG.executor.network ], sudo: true }
+if(CONFIG.executor.interface) {
+    arpScanOptions.interface = CONFIG.executor.interface
 }
 
 // -----------------------------------------------------------------------
@@ -46,17 +59,15 @@ const defineNodeIP = (mac, ip) => {
     })
 }
 
-const updateNodeHost = (nodeIp, nodeName) => new Promise((resolve, reject) => {
-    const SCRIPT = __dirname + '/../hosts-file/define.sh'
-    exec(`sh ${SCRIPT} ${nodeIp} ${nodeName} ${CONFIG.name}`, (error, stdout) => {
-        if(error) {
-            reject(stdout)
-        } else {
-            console.log(`[HOSTS FILE UPDATE] ${stdout}`)
-            resolve()
-        }
-    })
-})
+const updateHostsFile = (nodeIp, nodeName, targetIp = null) => {
+    const script = `${__dirname}/defineEtcHosts.sh`
+    const args = `${nodeIp} ${nodeName} ${CONFIG.name}`
+    if(targetIp === null) {
+        executeScriptLocal(script, args)
+    } else {
+        executeScriptSSH(script, args, targetIp, CONFIG.ssh.user, CONFIG.ssh.key)
+    }
+}
 
 // -----------------------------------------------------------------------
 
@@ -74,9 +85,16 @@ handle('own-mac', getMacAddress, null, macAddress => {
             defineNodeIP(element.mac, element.ip)
         })
 
-        // 5. Updates the executor /etc/hosts file
+        // 5. Updates the /etc/hosts file of all nodes via SSH
+        CONFIG.nodes.forEach(parentNode => {
+            CONFIG.nodes.forEach(childNode => {
+                updateHostsFile(childNode.ip, childNode.name, parentNode.ip)
+            })
+        })
+
+        // 6. Updates the executor /etc/hosts file
         CONFIG.nodes.forEach(node => {
-            updateNodeHost(node.ip, node.name)
+            updateHostsFile(node.ip, node.name)
         })
 
     })

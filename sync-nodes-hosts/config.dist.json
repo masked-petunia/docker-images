@@ -1,10 +1,14 @@
 {
     "name": "*CLUSTER DOMAIN NAME*",
-    "host": {
+    "executor": {
         "interface": "*NETWORK INTERFACE (OR LEAVE EMPTY)*",
-        "network": "192.168.192.0/24"
+        "network": "192.168.***.***/24"
     },
     "nodes": [
         { "name": "server1", "mac": "*MAC ADDRESS*" }
-    ]
+    ],
+    "ssh": {
+        "user": "*SSH USERNAME TO USE*",
+        "key": "*PATH TO YOUR SSH KEY*"
+    }
 }
