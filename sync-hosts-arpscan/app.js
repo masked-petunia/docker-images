@@ -40,7 +40,7 @@ const executeScriptSSH = (script, args, targetIp, user, key) => {
 
 // -----------------------------------------------------------------------
 
-const CONFIG = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+const CONFIG = JSON.parse(fs.readFileSync(`${__dirname}/config.json`, 'utf8'))
 
 const arpScanOptions = { args: [ CONFIG.executor.network ], sudo: true }
 if(CONFIG.executor.interface) {
