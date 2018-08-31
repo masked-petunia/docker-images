@@ -14,16 +14,16 @@ if(fs.existsSync(CACHE_FILENAME)) {
     CACHE = JSON.parse(fs.readFileSync(CACHE_FILENAME, 'utf8'))
 }
 
-const updateHostsFile = hosts => {
-    Object.keys(hosts).forEach(hostname => {
-        const ip = hosts[hostname]
-        if(typeof CACHE[hostname] === 'undefined' || ip !== CACHE[hostname]) {
-            hostile.set(ip, hostname, err => {
+const updateHostsFile = (hosts, domain) => {
+    hosts.forEach(host => {
+        if(typeof CACHE[host.name] === 'undefined' || ip !== CACHE[host.name]) {
+            const url = `${host.name}.${domain}`
+            hostile.set(host.ip, url, err => {
                 if(err) {
                     console.error("[ERROR]", err)
                 } else {
-                    console.log(`Record for ${hostname} updated to ${ip}`)
-                    CACHE[hostname] = ip
+                    console.log(`Record for ${url} set to ${host.ip}`)
+                    CACHE[host.name] = ip
                     fs.writeFile(CACHE_FILENAME, JSON.stringify(CACHE), err => {
                         if(err) {
                             console.log("[ERROR] Cache not saved")
@@ -50,7 +50,14 @@ const callback = response => {
         if(data === "Error") {
             console.log("[ERROR] Server response")
         } else {
-            updateHostsFile(JSON.parse(data))
+            const jsonData = JSON.parse(data)
+            if(typeof jsonData.hosts === "undefined") {
+                console.log("[ERROR] Hosts missing from response")
+            } else if(typeof jsonData.domain === "undefined") {
+                console.log("[ERROR] Domain missing from response")
+            } else {
+                updateHostsFile(jsonData.hosts, jsonData.domain)
+            }
         }
     })
 }

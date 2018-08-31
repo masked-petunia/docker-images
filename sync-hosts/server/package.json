@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "author": "Nazim Lachter",
   "license": "Apache-2.0",
-  "main": "app.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {}
 }

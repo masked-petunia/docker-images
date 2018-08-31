@@ -39,6 +39,14 @@ const record = (name, ip) => {
     }
 }
 
+const getHosts = () => {
+    const list = []
+    Object.keys(hosts).forEach(name => {
+        list.push({ name, ip: hosts[hostname] })
+    })
+    return JSON.stringify(list)
+}
+
 const app = http.createServer((req, res) => {
     const params = url.parse(req.url, true).query
     if(!checkParams(params, [ 's1', 's2', 's3', 'name', 'ip' ])) {
@@ -49,7 +57,7 @@ const app = http.createServer((req, res) => {
         res.write('Error')
     } else {
         record(params.name, params.ip)
-        res.write(JSON.stringify(CACHE))
+        res.write({ hosts: getHosts(), domain: DOMAIN })
     }
     res.end()
 })
