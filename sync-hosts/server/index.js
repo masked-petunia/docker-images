@@ -41,7 +41,7 @@ const record = (name, ip) => {
 
 const getHosts = () => {
     const list = []
-    Object.keys(hosts).forEach(name => {
+    Object.keys(CACHE).forEach(name => {
         list.push({ name, ip: hosts[hostname] })
     })
     return JSON.stringify(list)

@@ -1,12 +1,9 @@
 const fs = require('fs')
 const ip = require('ip').address()
-const http = require('http')
 const hostile = require('hostile')
 
-const SECRET1 = process.env.SECRET1
-const SECRET2 = process.env.SECRET2
-const SECRET3 = process.env.SECRET3
-const NAME = process.env.NAME
+const PORT = process.env.PORT || 3000
+const http = require(`http${PORT === '443' ? 's' : ''}`)
 
 let CACHE = {}
 const CACHE_FILENAME = `${__dirname}/cache.json`
@@ -35,23 +32,32 @@ const updateHostsFile = (hosts, domain) => {
     })
 }
 
-const options = {
+http.request({
     host: process.env.URL,
-    port: process.env.PORT || 3000,
-    path: `/?s1=${SECRET1}&s2=${SECRET2}&s3=${SECRET3}&name=${NAME}&ip=${ip}`
-}
-
-const callback = response => {
+    port: PORT,
+    path: `/?s1=${process.env.SECRET1}`
+        + `&s2=${process.env.SECRET2}`
+        + `&s3=${process.env.SECRET3}`
+        + `&name=${process.env.NAME}`
+        + `&ip=${ip}`
+}, response => {
     let data = '';
     response.on('data', chunk => {
         data += chunk
     })
     response.on('end', () => {
+        console.log(data)
         if(data === "Error") {
             console.log("[ERROR] Server response")
         } else {
-            const jsonData = JSON.parse(data)
-            if(typeof jsonData.hosts === "undefined") {
+            let jsonData = null
+            try {
+                jsonData = JSON.parse(data)
+            } catch(e) {
+            }
+            if(jsonData === null) {
+                console.log("[ERROR] JSON parse")
+            } else if(typeof jsonData.hosts === "undefined") {
                 console.log("[ERROR] Hosts missing from response")
             } else if(typeof jsonData.domain === "undefined") {
                 console.log("[ERROR] Domain missing from response")
@@ -60,6 +66,4 @@ const callback = response => {
             }
         }
     })
-}
-
-http.request(options, callback).end()
+}).end()
