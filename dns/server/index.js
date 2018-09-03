@@ -3,9 +3,6 @@ const http = require('http')
 const url = require('url')
 
 const PORT = process.env.PORT || 3000
-const SECRET1 = process.env.SECRET1
-const SECRET2 = process.env.SECRET2
-const SECRET3 = process.env.SECRET3
 const DOMAIN = process.env.DOMAIN
 
 let CACHE = {}
@@ -21,9 +18,9 @@ const checkParams = (paramsList, toCheck) => {
 }
 
 const checkSecrets = params => {
-    return SECRET1 === params.s1
-        && SECRET2 === params.s2
-        && SECRET3 === params.s3
+    return process.env.SECRET1 === params.s1
+        && process.env.SECRET2 === params.s2
+        && process.env.SECRET3 === params.s3
 }
 
 const record = (name, ip) => {
@@ -39,25 +36,25 @@ const record = (name, ip) => {
     }
 }
 
-const getHosts = () => {
-    const list = []
+const getResponse = () => {
+    const response = { hosts: [], domain: DOMAIN }
     Object.keys(CACHE).forEach(name => {
-        list.push({ name, ip: hosts[hostname] })
+        response.hosts.push({ name, ip: CACHE[name] })
     })
-    return JSON.stringify(list)
+    return JSON.stringify(response)
 }
 
 const app = http.createServer((req, res) => {
     const params = url.parse(req.url, true).query
     if(!checkParams(params, [ 's1', 's2', 's3', 'name', 'ip' ])) {
-        console.log("[ERROR] A parameter is missing")
+        //console.log("[ERROR] A parameter is missing")
         res.write('Error')
     } else if(!checkSecrets(params)) {
         console.log("[ERROR] Wrong secrets")
         res.write('Error')
     } else {
         record(params.name, params.ip)
-        res.write({ hosts: getHosts(), domain: DOMAIN })
+        res.write(getResponse())
     }
     res.end()
 })
