@@ -7,4 +7,4 @@ docker run -d --privileged --network=host \
     -e SECRET2=$SECRET2 \
     -e SECRET3=$SECRET3 \
     -e NAME=$NAME \
-    n4zim/images:bmct-sync-client
+    n4zim/images:bmct-dns-client
