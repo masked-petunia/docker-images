@@ -5,4 +5,5 @@ ADD connect.sh /
 
 RUN chmod +x /connect.sh
 
-CMD while true; do sh /connect.sh; sleep $CAPTIVE_LOOP; done
+#CMD while true; do sh /connect.sh; sleep $CAPTIVE_LOOP; done
+CMD sh /connect.sh
