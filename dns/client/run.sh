@@ -7,4 +7,6 @@ docker run -d --privileged --network=host \
     -e SECRET2=$SECRET2 \
     -e SECRET3=$SECRET3 \
     -e NAME=$NAME \
+    -v /etc/hosts:/etc/hosts \
+    --name cluster-dns \
     n4zim/images:bmct-dns-client

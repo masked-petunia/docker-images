@@ -11,25 +11,28 @@ if(fs.existsSync(CACHE_FILENAME)) {
     CACHE = JSON.parse(fs.readFileSync(CACHE_FILENAME, 'utf8'))
 }
 
-const updateHostsFile = (hosts, domain) => {
-    hosts.forEach(host => {
-        if(typeof CACHE[host.name] === 'undefined' || ip !== CACHE[host.name]) {
-            const url = `${host.name}.${domain}`
-            hostile.set(host.ip, url, err => {
+const updateHost = (ip, url) => new Promise((resolve, reject) => {
+    hostile.set(ip, url, err => {
+        if(err) {
+            console.error("[ERROR]", err)
+            reject()
+        } else {
+            console.log(`Record for ${url} set to ${host.ip}`)
+            CACHE[host.name] = host.ip
+            fs.writeFile(CACHE_FILENAME, JSON.stringify(CACHE), err => {
                 if(err) {
-                    console.error("[ERROR]", err)
-                } else {
-                    console.log(`Record for ${url} set to ${host.ip}`)
-                    CACHE[host.name] = ip
-                    fs.writeFile(CACHE_FILENAME, JSON.stringify(CACHE), err => {
-                        if(err) {
-                            console.log("[ERROR] Cache not saved")
-                        }
-                    })
+                    console.log("[ERROR] Cache not saved")
                 }
             })
+            resolve()
         }
     })
+})
+
+const updateHostsFile = (hosts, domain) => {
+    Promise.all(hosts.filter(host => {
+        return typeof CACHE[host.name] === 'undefined' || ip !== CACHE[host.name]
+    }).map(host => updateHost(host.ip, `${host.name}.${domain}`)))
 }
 
 http.request({
@@ -46,15 +49,13 @@ http.request({
         data += chunk
     })
     response.on('end', () => {
-        console.log(data)
         if(data === "Error") {
             console.log("[ERROR] Server response")
         } else {
             let jsonData = null
             try {
                 jsonData = JSON.parse(data)
-            } catch(e) {
-            }
+            } catch(e) {}
             if(jsonData === null) {
                 console.log("[ERROR] JSON parse")
             } else if(typeof jsonData.hosts === "undefined") {
