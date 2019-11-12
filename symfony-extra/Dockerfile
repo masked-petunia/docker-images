@@ -1,4 +1,4 @@
-FROM n4zim/images:symfony
+FROM maskedbegonia/images:symfony
 
 MAINTAINER Nazim Lachter <nlachter@gmail.com>
 
