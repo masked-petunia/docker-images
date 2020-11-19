@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-MAINTAINER Nazim Lachter <nlachter@gmail.com>
+MAINTAINER Zei <admin.zei-world.com>
 
 # Update repository
 RUN apk update && apk upgrade
